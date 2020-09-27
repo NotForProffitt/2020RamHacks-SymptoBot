@@ -20,9 +20,9 @@ const steps = [
 const theme = {
   background: '#f5f8fb',
   fontFamily: 'Arial',
-  headerBgColor: '#2C2F33',
+  headerBgColor: '#082c50',
   headerFontColor: '#fff',
-  headerFontSize: '48px',
+  headerFontSize: '44px',
   botBubbleColor: '#a3acf7',
   botFontColor: '#fff',
   userBubbleColor: '#fff',
@@ -30,10 +30,14 @@ const theme = {
 }
 
 function App () {
+  document.title = 'Sympto-bot'
   return (
-    <ThemeProvider theme={theme}>
-      <ChatBot />
-    </ThemeProvider>
+    <div>
+      <title>Sympto-bot</title>
+      <ThemeProvider theme={theme}>
+        <ChatBot />
+      </ThemeProvider>
+    </div>
   )
 }
 

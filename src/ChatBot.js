@@ -20,7 +20,7 @@ class ChatBotBox extends Component {
   componentWillMount () {
     const self = this
     const { query } = this.props
-    const queryUrl = `http://localhost:8001/api/query?query=${encodeURI(this.props.steps.search.value)}`
+    const queryUrl = `https://curtisf.dev:8001/api/query?query=${encodeURI(this.props.steps.search.value)}`
 
     const xhr = new XMLHttpRequest()
 
@@ -116,6 +116,11 @@ class ChatBotBox extends Component {
 export default () => {
   return (<ChatBot
     headerTitle='Sympto-bot'
+    recognitionEnable
+    botAvatar='https://cdn.discordapp.com/attachments/759402857669328920/759636605802905680/symptobot.png'
+    floatingIcon={() => {
+      return (<p>Floating lad</p>)
+    }}
     steps={[
       {
         id: '1',
@@ -136,9 +141,9 @@ export default () => {
     ]}
     // floatingStyle={{ height: '100vh', width: '100%' }}
     // customStyle={{ height: '100vh', width: '100%' }}
-    style={{ height: '100vh', width: '100%', fontSize: '50px' }}
-    contentStyle={{ height: '88vh', width: '100%', fontSize: '50px' }}
-    bubbleStyle={{ fontSize: '24px' }}
+    style={{ height: '99vh', width: '100%', fontSize: '24px' }}
+    contentStyle={{ height: '88vh', width: '100%', fontSize: '24px' }}
+    bubbleStyle={{ fontSize: '24px', backgroundColor: '#105eab', color: 'white' }}
     // inputStyle={{ marginBottom: '0px', height: '10vh', width: '100%' }}
   />)
 }
