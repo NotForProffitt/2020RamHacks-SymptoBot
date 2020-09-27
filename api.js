@@ -6,7 +6,7 @@ const cors = require('cors')
 
 app
   .use(cors())
-  .get('/api/query', async (req, res) => {
+  .get('/query', async (req, res) => {
     console.log(req.query)
     if (!req.query.query) return res.status(400).send('missing query parameter')
     const result = await runSample(req.query.query)

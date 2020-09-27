@@ -22,7 +22,7 @@ const theme = {
   fontFamily: 'Arial',
   headerBgColor: '#082c50',
   headerFontColor: '#fff',
-  headerFontSize: '44px',
+  headerFontSize: '36px',
   botBubbleColor: '#a3acf7',
   botFontColor: '#fff',
   userBubbleColor: '#fff',
@@ -30,7 +30,7 @@ const theme = {
 }
 
 function App () {
-  document.title = 'Sympto-bot'
+  document.title = 'Sympto-Bot'
   return (
     <div>
       <title>Sympto-bot</title>
