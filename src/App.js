@@ -19,11 +19,11 @@ const steps = [
 
 const theme = {
   background: '#f5f8fb',
-  fontFamily: 'Helvetica Neue',
-  headerBgColor: '#EF6C00',
+  fontFamily: 'Arial',
+  headerBgColor: '#2C2F33',
   headerFontColor: '#fff',
-  headerFontSize: '15px',
-  botBubbleColor: '#EF6C00',
+  headerFontSize: '48px',
+  botBubbleColor: '#a3acf7',
   botFontColor: '#fff',
   userBubbleColor: '#fff',
   userFontColor: '#4a4a4a'
@@ -31,9 +31,9 @@ const theme = {
 
 function App () {
   return (
-    <div className='App'>
+    <ThemeProvider theme={theme}>
       <ChatBot />
-    </div>
+    </ThemeProvider>
   )
 }
 

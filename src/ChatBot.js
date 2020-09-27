@@ -8,7 +8,9 @@ class ChatBotBox extends Component {
     this.state = {
       loading: true,
       result: '',
-      trigger: false
+      trigger: false,
+      displayData: false,
+      assessmentEmbed: false
     }
 
     this.triggetNext = this.triggetNext.bind(this)
@@ -28,7 +30,7 @@ class ChatBotBox extends Component {
       if (this.readyState === 4) {
         console.log(this.responseText)
         const data = JSON.parse(this.responseText)
-        self.setState({ loading: false, result: data.fulfillmentText })
+        self.setState({ loading: false, result: data.fulfillmentText, displayData: !!((data.intent && data.intent.displayName === 'symptobot.displaydata')), assessmentEmbed: !!((data.intent && data.intent.displayName === 'symptobot.risk')) })
       }
     }
 
@@ -39,6 +41,7 @@ class ChatBotBox extends Component {
   triggetNext () {
     this.setState({ trigger: true }, () => {
       this.props.triggerNextStep()
+      this.setState({ trigger: true, result: '', loading: this.state.loading, displayData: false, assessmentEmbed: false })
     })
   }
 
@@ -46,6 +49,23 @@ class ChatBotBox extends Component {
     this.setState({ trigger: true }, () => {
       window.location.href = 'https://www.google.com/maps/search/covid+testing+near+me'
     })
+  }
+
+  get dataEmbed () {
+    if (!this.state.displayData) return
+    return (
+      <div>
+        <iframe src='https://ourworldindata.org/coronavirus-data-explorer?tab=map&yScale=log&zoomToSelection=true&time=earliest..latest&country=~USA&region=World&casesMetric=true&interval=smoothed&aligned=true&smoothing=7&pickerMetric=location&pickerSort=asc' loading='lazy' style={{ width: '1800px', height: '900px' }} />
+        <button onClick={() => window.location.href = 'https://ourworldindata.org/coronavirus-data-explorer?tab=map&yScale=log&zoomToSelection=true&time=earliest..latest&country=~USA&region=World&casesMetric=true&interval=smoothed&aligned=true&smoothing=7&pickerMetric=location&pickerSort=asc'}>View Stats</button>
+      </div>
+    )
+  }
+
+  get assessmentEmbed () {
+    if (!this.state.assessmentEmbed) return
+    return (
+      <iframe id='hf-iframe' src='https://covid19.infermedica.com/en' style={{ width: '1600px', height: '600px' }} />
+    )
   }
 
   render () {
@@ -78,6 +98,14 @@ class ChatBotBox extends Component {
                   Find COVID testing centers near me
                 </button>
               }
+              {
+                !trigger &&
+                this.dataEmbed
+              }
+              {
+                !trigger &&
+                this.assessmentEmbed
+              }
             </div>
         }
       </div>
@@ -87,10 +115,11 @@ class ChatBotBox extends Component {
 
 export default () => {
   return (<ChatBot
+    headerTitle='Sympto-bot'
     steps={[
       {
         id: '1',
-        message: 'Hi, I\'m Sympto-bot! Give me your symptoms or a situation and I\'ll do my best to guide you.',
+        message: 'Hi, I\'m Sympto-bot! Give me a situation and I\'ll do my best to guide you, or ask for a risk assessment to take a quiz.',
         trigger: 'search'
       },
       {
@@ -105,5 +134,11 @@ export default () => {
         trigger: '1'
       }
     ]}
+    // floatingStyle={{ height: '100vh', width: '100%' }}
+    // customStyle={{ height: '100vh', width: '100%' }}
+    style={{ height: '100vh', width: '100%', fontSize: '50px' }}
+    contentStyle={{ height: '88vh', width: '100%', fontSize: '50px' }}
+    bubbleStyle={{ fontSize: '24px' }}
+    // inputStyle={{ marginBottom: '0px', height: '10vh', width: '100%' }}
   />)
 }
